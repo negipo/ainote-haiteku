@@ -10,9 +10,20 @@ Chrome — the "high-tech" (haiteku) edition.
   inactive state.
 - Plays a random ainote sound on Enter / keypad Enter / Ctrl+M.
 - Automatically stays quiet while any Chrome tab has `meet.google.com` open.
-- The menu shows the current status and lets you toggle manual enable/disable, toggle launch at
-  login, and quit.
+- The menu shows the current status (including Chrome and key-monitor state), a volume slider, a
+  manual enable/disable toggle, and a Settings submenu (Launch at Login, Acquire Accessibility
+  Permission).
 - Launches automatically at login (registered as a login item on first launch).
+
+## Installation
+
+```bash
+brew install --cask negipo/tap/ainote-haiteku
+```
+
+The app is ad-hoc signed (no Apple Developer ID); the cask clears the quarantine attribute
+automatically. On first launch, grant Accessibility and Automation (Google Chrome) permissions under
+System Settings > Privacy & Security.
 
 ## State model
 

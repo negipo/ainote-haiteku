@@ -17,3 +17,17 @@ xcodebuild build \
   -scheme ainote-haiteku \
   -configuration Release \
   -derivedDataPath build/
+
+if [ -n "${VERSION:-}" ]; then
+  APP_PATH="build/Build/Products/Release/ainote-haiteku.app"
+  DMG_NAME="ainote-haiteku-${VERSION}-macos.dmg"
+  create-dmg \
+    --volname "ainote-haiteku" \
+    --window-size 600 400 \
+    --icon-size 128 \
+    --icon "ainote-haiteku.app" 150 200 \
+    --app-drop-link 450 200 \
+    --no-internet-enable \
+    "$DMG_NAME" "$APP_PATH"
+  echo "Created $DMG_NAME"
+fi

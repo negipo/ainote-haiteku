@@ -1,0 +1,41 @@
+name: Test
+
+on:
+  push:
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Run SwiftLint
+        run: swiftlint
+
+  test:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate project
+        run: xcodegen generate
+        env:
+          CURRENT_PROJECT_VERSION: ci
+
+      - name: Run Swift tests
+        run: |
+          xcodebuild test \
+            -project ainote-haiteku.xcodeproj \
+            -scheme ainote-haitekuTests \
+            -configuration Debug \
+            -derivedDataPath build/
