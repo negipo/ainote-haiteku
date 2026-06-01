@@ -1,0 +1,39 @@
+name: ainote-haiteku
+options:
+  bundleIdPrefix: com.negipo
+  deploymentTarget:
+    macOS: "14.0"
+targets:
+  ainote-haiteku:
+    type: application
+    platform: macOS
+    sources:
+      - path: AinoteHaiteku
+        excludes:
+          - Resources
+      - path: AinoteHaiteku/Resources
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.negipo.ainote-haiteku
+        INFOPLIST_FILE: AinoteHaiteku/Info.plist
+        CODE_SIGN_ENTITLEMENTS: AinoteHaiteku/AinoteHaiteku.entitlements
+        CODE_SIGN_IDENTITY: "-"
+        PRODUCT_NAME: ainote-haiteku
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        SWIFT_VERSION: "5.9"
+        CURRENT_PROJECT_VERSION: ${CURRENT_PROJECT_VERSION}
+  ainote-haitekuTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: AinoteHaitekuTests
+    dependencies:
+      - target: ainote-haiteku
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/ainote-haiteku.app/Contents/MacOS/ainote-haiteku"
+        GENERATE_INFOPLIST_FILE: "YES"
